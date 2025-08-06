@@ -1,0 +1,177 @@
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>آمنة محمد - موقعي الشخصي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      color: #880e4f;
+      text-align: center;
+      padding-bottom: 100px;
+    }
+    header {
+      background-color: #ec407a;
+      padding: 20px;
+      color: white;
+      font-size: 28px;
+    }
+    nav {
+      margin: 20px;
+    }
+    nav a {
+      margin: 10px;
+      text-decoration: none;
+      color: #fff;
+      background: #d81b60;
+      padding: 10px 15px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    nav a:hover {
+      background-color: #c2185b;
+    }
+    section {
+      display: none;
+      padding: 30px 15px;
+    }
+    section.active {
+      display: block;
+      animation: fadeIn 0.6s ease-in;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px 5px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #ec407a;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #d81b60;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>مرحباً بكم في موقع آمنة محمد 💖</header>
+
+  <nav>
+    <a href="#" onclick="showSection('home')">الرئيسية</a>
+    <a href="#" onclick="showSection('works')">أعمالي</a>
+    <a href="#" onclick="showSection('tools')">البرامج الحسابية</a>
+    <a href="#" onclick="showSection('contact')">تواصل معي</a>
+  </nav>
+
+  <!-- الرئيسية -->
+  <section id="home" class="active">
+    <h2>✨ نبذة عني</h2>
+    <p>أنا آمنة محمد، مهتمة بتعلم تصميم وبرمجة المواقع 💻</p>
+    <p>هذا الموقع يعرض بعض من أعمالي وأدوات برمجية بسيطة من تصميمي.</p>
+  </section>
+
+  <!-- الأعمال -->
+  <section id="works">
+    <h2>💼 أعمالي</h2>
+    <p>🔸 تصميم صفحة هبوط لموقع بناتي</p>
+    <p>🔸 تطبيق HTML + CSS لواجهة مستخدم</p>
+    <p>🔸 صفحة حسابية لحساب مساحة وحجم الأشكال</p>
+  </section>
+
+  <!-- البرامج -->
+  <section id="tools">
+    <h2>📐 البرامج الحسابية</h2>
+
+    <!-- حجم الأسطوانة -->
+    <div>
+      <h3>حساب حجم الأسطوانة</h3>
+      <input type="number" id="radius" placeholder="نصف القطر">
+      <input type="number" id="height" placeholder="الارتفاع">
+      <button onclick="calcCylinder()">احسب</button>
+      <div class="result" id="cylinderResult"></div>
+    </div>
+
+    <!-- مساحة الدائرة -->
+    <div>
+      <h3>حساب مساحة الدائرة</h3>
+      <input type="number" id="circleRadius" placeholder="نصف القطر">
+      <button onclick="calcCircle()">احسب</button>
+      <div class="result" id="circleResult"></div>
+    </div>
+
+    <!-- معادلة الدرجة الثانية -->
+    <div>
+      <h3>حل معادلة من الدرجة الثانية</h3>
+      <input type="number" id="a" placeholder="a">
+      <input type="number" id="b" placeholder="b">
+      <input type="number" id="c" placeholder="c">
+      <button onclick="solveQuadratic()">احسب</button>
+      <div class="result" id="quadResult"></div>
+    </div>
+  </section>
+
+  <!-- تواصل -->
+  <section id="contact">
+    <h2>📩 تواصل معي</h2>
+    <p>يمكنك ترك رسالة عبر النموذج:</p>
+    <form onsubmit="event.preventDefault(); alert('تم إرسال الرسالة بنجاح!')">
+      <input type="text" placeholder="الاسم" required><br>
+      <input type="email" placeholder="البريد الإلكتروني" required><br>
+      <textarea placeholder="اكتب رسالتك هنا..." rows="4" required style="width: 80%; border-radius: 10px;"></textarea><br>
+      <button type="submit">إرسال</button>
+    </form>
+  </section>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function calcCylinder() {
+      const r = parseFloat(document.getElementById('radius').value);
+      const h = parseFloat(document.getElementById('height').value);
+      if (isNaN(r) || isNaN(h)) return alert("أدخل القيم صحيحة");
+      const volume = Math.PI * r * r * h;
+      document.getElementById('cylinderResult').textContent = `الحجم = ${volume.toFixed(2)}`;
+    }
+
+    function calcCircle() {
+      const r = parseFloat(document.getElementById('circleRadius').value);
+      if (isNaN(r)) return alert("أدخل نصف القطر");
+      const area = Math.PI * r * r;
+      document.getElementById('circleResult').textContent = `المساحة = ${area.toFixed(2)}`;
+    }
+
+    function solveQuadratic() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+      if (isNaN(a) || isNaN(b) || isNaN(c)) return alert("أدخل القيم كاملة");
+      const d = b*b - 4*a*c;
+      if (d < 0) {
+        document.getElementById('quadResult').textContent = "لا يوجد حل حقيقي.";
+      } else {
+        const x1 = (-b + Math.sqrt(d)) / (2*a);
+        const x2 = (-b - Math.sqrt(d)) / (2*a);
+        document.getElementById('quadResult').textContent = `الحل: x1 = ${x1.toFixed(2)} , x2 = ${x2.toFixed(2)}`;
+      }
+    }
+  </script>
+
+</body>
+</html>
